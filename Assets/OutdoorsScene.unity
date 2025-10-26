@@ -1700,7 +1700,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f906619b9bf898c4783848780ec9f398, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startShowKey: 49
+  startShowKey: 256
   flickerModule: {fileID: 1265698063}
   tiltSweepModule: {fileID: 1396398790}
 --- !u!4 &1187074465
