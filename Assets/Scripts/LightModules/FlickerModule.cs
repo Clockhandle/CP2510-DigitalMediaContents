@@ -6,14 +6,17 @@ public class FlickerModule : MonoBehaviour
 {
     public enum FlickerMode
     {
-        ToggleEnabled,     // Toggles light.enabled on and off
-        ModulateIntensity  // Keeps light on, but randomizes intensity
+        ToggleEnabled,      // Toggles light.enabled on and off
+        ModulateIntensity   // Keeps light on, but randomizes intensity
     }
 
     [Header("Flicker Setup")]
     public FlickerMode mode = FlickerMode.ToggleEnabled;
 
-    [Tooltip("Assign all the lights you want this module to control.")]
+    [Tooltip("Drag the Parent GameObject (LightSet) here to auto-fill the list.")]
+    public Transform lightSetParent;
+
+    [Tooltip("Assign lights here manually, OR leave empty and use lightSetParent above.")]
     public List<GameObject> Spotlights;
 
     [Header("Flicker Timing (Random range)")]
@@ -31,6 +34,16 @@ public class FlickerModule : MonoBehaviour
 
     void Awake()
     {
+        // If the list is empty BUT we assigned a parent, grab the children!
+        if (Spotlights.Count == 0 && lightSetParent != null)
+        {
+            foreach (Transform child in lightSetParent)
+            {
+                Spotlights.Add(child.gameObject);
+            }
+        }
+
+        // --- ORIGINAL SETUP ---
         lightsToControl.Clear();
         originalIntensities.Clear();
 
@@ -38,7 +51,10 @@ public class FlickerModule : MonoBehaviour
         {
             if (go != null)
             {
+                // We use GetComponentInChildren just in case the Light component 
+                // is slightly nested, or on the object itself.
                 Light light = go.GetComponentInChildren<Light>();
+
                 if (light != null)
                 {
                     lightsToControl.Add(light);
@@ -50,11 +66,10 @@ public class FlickerModule : MonoBehaviour
 
 
     // --- PUBLIC COMMANDS ---
-    // Your "Choreographer" script will call these functions
 
     public void StartFlicker()
     {
-        if (isFlickering) return; // Don't start if already running
+        if (isFlickering) return;
 
         isFlickering = true;
         flickerCoroutine = StartCoroutine(DoFlicker());
@@ -62,10 +77,10 @@ public class FlickerModule : MonoBehaviour
 
     public void StopFlicker()
     {
-        if (!isFlickering) return; // Don't stop if not running
+        if (!isFlickering) return;
 
         isFlickering = false;
-        StopCoroutine(flickerCoroutine);
+        if (flickerCoroutine != null) StopCoroutine(flickerCoroutine);
         RestoreLights();
     }
 
@@ -74,32 +89,26 @@ public class FlickerModule : MonoBehaviour
 
     IEnumerator DoFlicker()
     {
-        // This loop will run until StopFlicker() is called
         while (isFlickering)
         {
-            // Apply flicker to every light in the list
             foreach (Light light in lightsToControl)
             {
                 if (mode == FlickerMode.ToggleEnabled)
                 {
-                    // Simple on/off toggle
                     light.enabled = !light.enabled;
                 }
                 else // Mode is ModulateIntensity
                 {
-                    // Ensure light is on, then change brightness
                     light.enabled = true;
                     light.intensity = Random.Range(minIntensity, maxIntensity);
                 }
             }
 
-            // Wait for a random amount of time before the next flicker
             float waitTime = Random.Range(minTime, maxTime);
             yield return new WaitForSeconds(waitTime);
         }
     }
 
-    // Restores all lights to their original, pre-flicker state
     private void RestoreLights()
     {
         for (int i = 0; i < lightsToControl.Count; i++)
@@ -107,7 +116,11 @@ public class FlickerModule : MonoBehaviour
             if (lightsToControl[i] != null)
             {
                 lightsToControl[i].enabled = true;
-                lightsToControl[i].intensity = originalIntensities[i];
+                // Only restore intensity if we actually stored it
+                if (i < originalIntensities.Count)
+                {
+                    lightsToControl[i].intensity = originalIntensities[i];
+                }
             }
         }
     }
