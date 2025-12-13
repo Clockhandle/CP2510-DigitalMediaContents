@@ -23,7 +23,7 @@ MonoBehaviour:
         m_Curve: []
         m_PreInfinity: 0
         m_PostInfinity: 0
-        m_RotationOrder: 0
+        m_RotationOrder: 4
   - From: Cam_2
     To: Cam_3
     Blend:
@@ -51,6 +51,17 @@ MonoBehaviour:
     Blend:
       Style: 0
       Time: 5
+      CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - From: Cam_1
+    To: Cam_5
+    Blend:
+      Style: 4
+      Time: 2
       CustomCurve:
         serializedVersion: 2
         m_Curve: []
