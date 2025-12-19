@@ -13,55 +13,231 @@ MonoBehaviour:
   m_Name: CamBlends
   m_EditorClassIdentifier: 
   CustomBlends:
-  - From: Cam_1
-    To: Cam_2
-    Blend:
-      Style: 2
-      Time: 4
-      CustomCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 4
-  - From: Cam_2
-    To: Cam_3
-    Blend:
-      Style: 0
-      Time: 5
-      CustomCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 4
-  - From: Cam_3
-    To: Cam_4
+  - From: left_mid_stage
+    To: right_mid_stage
     Blend:
       Style: 1
-      Time: 5
+      Time: 6
       CustomCurve:
         serializedVersion: 2
         m_Curve: []
         m_PreInfinity: 0
         m_PostInfinity: 0
         m_RotationOrder: 4
-  - From: Cam_4
-    To: Cam_5
+  - From: right_mid_stage
+    To: close_mid_stage
     Blend:
       Style: 0
-      Time: 5
+      Time: 6
       CustomCurve:
         serializedVersion: 2
         m_Curve: []
         m_PreInfinity: 0
         m_PostInfinity: 0
         m_RotationOrder: 4
-  - From: Cam_5
-    To: Cam_6
+  - From: close_mid_stage
+    To: mid_mid_stage
+    Blend:
+      Style: 5
+      Time: 3
+      CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 4
+  - From: mid_mid_stage
+    To: mid_high_stage
     Blend:
       Style: 0
-      Time: 2
+      Time: 3
+      CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 4
+  - From: mid_high_stage
+    To: close_mid_stage
+    Blend:
+      Style: 4
+      Time: 3
+      CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 4
+  - From: close_mid_stage
+    To: left_mid_aud
+    Blend:
+      Style: 0
+      Time: 3
+      CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 4
+  - From: left_mid_aud
+    To: right_mid_aud
+    Blend:
+      Style: 1
+      Time: 3
+      CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 4
+  - From: right_mid_aud
+    To: left_high_stage
+    Blend:
+      Style: 0
+      Time: 3
+      CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 4
+  - From: left_high_stage
+    To: close_mid_stage
+    Blend:
+      Style: 1
+      Time: 3
+      CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 4
+  - From: close_mid_stage
+    To: right_high_stage
+    Blend:
+      Style: 0
+      Time: 3
+      CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 4
+  - From: right_high_stage
+    To: mid_mid_stage
+    Blend:
+      Style: 1
+      Time: 3
+      CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 4
+  - From: mid_mid_stage
+    To: left_mid_stage
+    Blend:
+      Style: 0
+      Time: 3
+      CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 4
+  - From: left_mid_stage
+    To: mid_mid_stage
+    Blend:
+      Style: 1
+      Time: 3
+      CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 4
+  - From: mid_mid_stage
+    To: close_mid_stage
+    Blend:
+      Style: 1
+      Time: 3
+      CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 4
+  - From: close_mid_stage
+    To: mid_mid_stage
+    Blend:
+      Style: 5
+      Time: 3
+      CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 4
+  - From: mid_mid_stage
+    To: right_mid_stage
+    Blend:
+      Style: 1
+      Time: 3
+      CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 4
+  - From: right_mid_stage
+    To: left_mid_aud
+    Blend:
+      Style: 0
+      Time: 3
+      CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 4
+  - From: left_mid_aud
+    To: mid_mid_stage
+    Blend:
+      Style: 1
+      Time: 3
+      CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 4
+  - From: mid_mid_stage
+    To: mid_high_stage
+    Blend:
+      Style: 0
+      Time: 3
+      CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 4
+  - From: mid_high_stage
+    To: right_mid_aud
+    Blend:
+      Style: 1
+      Time: 3
+      CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 4
+  - From: close_mid_stage
+    To: mid_high_stage
+    Blend:
+      Style: 5
+      Time: 3
       CustomCurve:
         serializedVersion: 2
         m_Curve: []
