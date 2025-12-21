@@ -4,7 +4,11 @@ using System.Collections.Generic;
 
 public class TiltSweepModule : MonoBehaviour
 {
-    [Tooltip("Add all lights this module should control (e.g., all 17 spotlights)")]
+    [Header("Setup")]
+    [Tooltip("Drag the Parent GameObject (LightSet) here to auto-fill the list.")]
+    public Transform lightSetParent;
+
+    [Tooltip("Add all lights manually here, OR leave empty and use lightSetParent above.")]
     public List<GameObject> lightsToAnimate;
 
     [Header("Animation Settings")]
@@ -25,42 +29,59 @@ public class TiltSweepModule : MonoBehaviour
 
     void Start()
     {
+        // --- NEW AUTO-POPULATE LOGIC ---
+        // If list is empty but parent is assigned, grab children
+        if (lightsToAnimate.Count == 0 && lightSetParent != null)
+        {
+            foreach (Transform child in lightSetParent)
+            {
+                lightsToAnimate.Add(child.gameObject);
+            }
+        }
+
+        // --- ORIGINAL SETUP ---
         // Store the "home" rotation for every light in our list
         foreach (GameObject light in lightsToAnimate)
         {
-            homeRotations.Add(light.transform.localRotation);
+            if (light != null)
+            {
+                homeRotations.Add(light.transform.localRotation);
+            }
         }
     }
 
     // --- PUBLIC COMMAND ---
-    // The LightChoreographer will call this
     public void StartSweepWave()
     {
         if (isSweeping) return;
 
-        // This *starts* the master coroutine that will trigger all the lights
         StartCoroutine(RunSweepWave());
     }
 
-    // This "master" coroutine loops through the lights and starts
-    // an *individual* animation coroutine for each one, after a delay.
+    // --- THE LOGIC (Unchanged) ---
     IEnumerator RunSweepWave()
     {
         isSweeping = true;
 
         for (int i = 0; i < lightsToAnimate.Count; i++)
         {
-            // Start the animation for just this one light
-            StartCoroutine(DoSingleLightSweep(lightsToAnimate[i], homeRotations[i]));
+            if (lightsToAnimate[i] != null)
+            {
+                // Start the animation for just this one light
+                StartCoroutine(DoSingleLightSweep(lightsToAnimate[i], homeRotations[i]));
 
-            // Wait for the wave delay before starting the next light
-            yield return new WaitForSeconds(waveDelay);
+                // Wait for the wave delay before starting the next light
+                yield return new WaitForSeconds(waveDelay);
+            }
         }
 
+        // Note: We don't set isSweeping = false immediately because coroutines are still running.
+        // But for a simple trigger, this is usually fine. 
+        // If you want to trigger it again immediately, you might want to wait here.
+        yield return new WaitForSeconds(timeToDown + timeToUp + timeToHome);
         isSweeping = false;
     }
 
-    // This is the actual animation logic for one light
     IEnumerator DoSingleLightSweep(GameObject light, Quaternion homeRot)
     {
         // Pre-calculate target rotations for this specific light
