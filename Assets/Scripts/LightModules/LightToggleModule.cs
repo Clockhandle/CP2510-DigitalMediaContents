@@ -9,6 +9,8 @@ public class LightToggleModule : MonoBehaviour
     public Transform lightSetParent;
     public List<GameObject> lightsToControl;
 
+    [Header("Pulse Settings")]
+    public float pulseDuration = 0.1f; // How long the flash lasts (0.1 is snappy)
     // We cache the actual Light components for performance
     private List<Light> targetLights = new List<Light>();
 
@@ -58,6 +60,29 @@ public class LightToggleModule : MonoBehaviour
         foreach (Light l in targetLights)
         {
             if (l != null) l.enabled = !l.enabled;
+        }
+    }
+
+    public void Pulse()
+    {
+        StartCoroutine(DoPulse());
+    }
+
+    private IEnumerator DoPulse()
+    {
+        // 1. Turn On immediately
+        foreach (Light l in targetLights)
+        {
+            if (l != null) l.enabled = true;
+        }
+
+        // 2. Wait for a fraction of a second
+        yield return new WaitForSeconds(pulseDuration);
+
+        // 3. Turn Off
+        foreach (Light l in targetLights)
+        {
+            if (l != null) l.enabled = false;
         }
     }
 }
